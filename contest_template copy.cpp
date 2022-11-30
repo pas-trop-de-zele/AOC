@@ -2,6 +2,10 @@
 using namespace std;
 #define ll long long
 #define ld long double
+#define vd vector<double>
+#define vvd vector<vd>
+#define vll vector<ll>
+#define vvll vector<vll>
 #define vi vector<int>
 #define vvi vector<vi>
 #define vs vector<string>
@@ -40,6 +44,10 @@ void deb(T *a, int n, int m) {
         }
         cout << endl;
     }
+}
+
+double euclid_dist(double x1, double y1, double x2, double y2) {
+    return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
 }
 
 void solve() {
