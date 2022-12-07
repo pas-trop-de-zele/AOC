@@ -1,6 +1,8 @@
 // ADD ANSWER TO THIS FILE
 
 #include "CharLinkedList.h"
+#include <iostream>
+using namespace std;
 bool CharLinkedList::checkList() {
 	SNode* cur = head;
 	int prev = 0;
