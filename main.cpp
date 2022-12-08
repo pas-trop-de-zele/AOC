@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include "bits/stdc++.h"
 using namespace std;
 #define ll long long
 #define ld long double
@@ -13,7 +13,13 @@ using namespace std;
 const vpi MOVES_ADJACENT{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 const vpi MOVES_ALL{{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 
-void deb(const vi &v) {
+template <typename T>
+void deb(T a) {
+    cout << a << endl;
+}
+
+template <typename T>
+void deb(const vector<T> &v) {
     for (auto &c : v) {
         cout << c << " ";
     }
@@ -37,61 +43,58 @@ void deb(T *a, int n, int m) {
     }
 }
 
-template <typename T>
-void deb(T a) {
-    cout << a << endl;
+vll primeFac(ll n) {
+    vll p;
+    while (n % 2 == 0) {
+        p.push_back(2);
+        n /= 2;
+    }
+    for (int i = 3; i * i <= n; i += 2) {
+        while(n % i == 0) {
+            p.push_back(i);
+            n /= i;
+        }
+        if (n == 1) {
+            break;
+        }
+    }
+    if (n > 1) {
+        p.push_back(n);
+    }
+    return p;
 }
 
-void solve() {
-    int n;
-    cin >> n;
-    vll sides;
-    for (int i = 0; i < n; ++i) {
-        int a;
-        cin >> a;
-        sides.push_back(a);
+template <typename T>
+struct Counter {
+    unordered_map<T, ll> counter;
+    ll operator[](ll x) const {
+        if (counter.find(x) == counter.end()) {
+            counter[x] = 0;
+        }
+        return counter[x];
     }
-    sort(sides.begin(), sides.end());
-    for (int i = 0; i < sides.size() - 2; ++i) {
-        if (i > 0 && sides[i] == sides[i - 1]) {
-            continue;
+    ll &operator[](ll x) {
+        if (counter.find(x) == counter.end()) {
+            counter[x] = 0;
         }
-        int l = i + 1, r = sides.size() - 1;
-        while (l < r) {
-            if (sides[l] + sides[r] > sides[i] && sides[i] + sides[r] > sides[l] && sides[i] + sides[l] > sides[r]) {
-                cout << "YES" << endl;
-                return;
-            } else {
-                ++l;
-                while (l + 1 < r && sides[l] == sides[l - 1]) {
-                    ++l;
-                }
-            }
-        }
-    }
-    for (int i = 0; i < sides.size() - 2; ++i) {
-        if (i > 0 && sides[i] == sides[i - 1]) {
-            continue;
-        }
-        int l = i + 1, r = sides.size() - 1;
-        while (l < r) {
-            if (sides[l] + sides[r] > sides[i] && sides[i] + sides[r] > sides[l] && sides[i] + sides[l] > sides[r]) {
-                cout << "YES" << endl;
-                return;
-            } else {
-                --r;
-                while (l < r - 1 && sides[r] == sides[r + 1]) {
-                    --r;
-                }
-            }
-        }
+        return counter[x];
     }
 
-    cout << "NO" << endl;
+    typename unordered_map<T, ll>::iterator begin() { return counter.begin(); }
+    typename unordered_map<T, ll>::iterator end() { return counter.end(); }
+};
+
+void solve() {
+    
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
+    // int t;
+    // cin >> t;
+    // while (t--) {
+    //     solve();
+    // }
     solve();
 }
