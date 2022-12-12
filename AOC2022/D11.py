@@ -7,10 +7,78 @@ from copy import *
 from collections import *
 import functools
 from itertools import *
-from math import sqrt, ceil
+
 # sys.setrecursionlimit(100000000)
 
+from math import sqrt, ceil
 
+
+def fac(n):
+    ret = []
+    while n % 2 == 0:
+        if not ret:
+            ret.append(2)
+        n //= 2
+    for i in range(3, n, 2):
+        if i * i > n:
+            break
+        while n % i == 0:
+            if not ret or ret[-1] != i:
+                ret.append(i)
+            n //= i
+        if n == 1:
+            break
+    if (n > 1):
+        ret.append(n)
+    return ret
+
+class UnionFind:
+    def __init__(self, size):
+        self.root = [i for i in range(size)]
+        self.rank = [1] * size
+        self.components = size
+        
+    def find(self, x):
+        if self.root[x] != x:
+            self.root[x] = self.find(self.root[x])
+        return self.root[x]
+    
+    def union(self, x, y):
+        if not self.is_connected(x, y):
+            rootX = self.root[x]
+            rootY = self.root[y]
+            if self.rank[rootX] < self.rank[rootY]:
+                self.root[rootX] = rootY
+            elif self.rank[rootX] > self.rank[rootY]:
+                self.root[rootY] = rootX
+            else:
+                self.root[rootY] = rootX
+                self.rank[rootX] += 1
+            self.components -= 1
+
+    def is_connected(self, x, y):
+        return self.find(x) == self.find(y)
+
+    def distinct_components(self):
+        return self.components
+
+def debM(m):
+    for r in m:
+        for c in r:
+            print(c, end='')
+        print()
+    print()
+
+
+def is_same(lookup):
+    times = set()
+    for start in lookup.values():
+        times.add(start)
+    return len(times) == 1 
+
+MOVES_ADJACENT = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+MOVES_ALL = [[1, 0], [1, 1], [0, 1], [-1, 1],
+             [-1, 0], [-1, -1], [0, -1], [1, -1]]
 fin = sys.stdin.read().strip().split("\n\n")
 
 class Monkey:
@@ -53,7 +121,6 @@ for _ in range(10000):
             elif monkey.operation == '*':
                 item *= val
 
-            # CHINESE REMAINDER THEOREM
             mods = [11,19,5,3,13,17,7,2]
             remainders = [item % mod for mod in mods]
             reduced_item = crt(mods, remainders)[0]
