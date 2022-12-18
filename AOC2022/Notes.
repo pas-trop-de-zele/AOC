@@ -1,0 +1,6 @@
+initially to dp(u, remains) -> realize that wouldnt work since 
+when you arrive at a node the nodes you visited maybe different and there could be new ways
+
+then do dp(u, sort(visited), remains) -> works correct for test but too slow for in
+
+now try (u, sort(visited from that node), remains) but this result is too high
