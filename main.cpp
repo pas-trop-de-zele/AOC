@@ -1,99 +1,144 @@
-#include "bits/stdc++.h"
+#include <algorithm>
+#include <assert.h>
+#include <cstring>
+#include <iomanip>
+#include <iostream>
+#include <limits.h>
+#include <map>
+#include <math.h>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+#include <bit>
 using namespace std;
 #define ll long long
 #define ld long double
+#define vll vector<ll>
+#define vvll vector<vll>
 #define vi vector<int>
 #define vvi vector<vi>
-#define vll vector<ll>
-#define vvll vector<vl>
+#define vvvi vector<vvi>
 #define vs vector<string>
 #define pi pair<int, int>
 #define vpi vector<pi>
-
+#define vvpi vector<vpi>
+#define pll pair<ll, ll>
+#define vpll vector<pll>
+#define pb push_back
+#define all(x) x.begin(), x.end()
+#define inf LLONG_MAX
+#define neginf LLONG_MIN
 const vpi MOVES_ADJACENT{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-const vpi MOVES_ALL{{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
-
+// const vpi MOVES_ALL{{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 template <typename T>
-void deb(T a) {
+void deb(T a)
+{
     cout << a << endl;
 }
 
 template <typename T>
-void deb(const vector<T> &v) {
-    for (auto &c : v) {
-        cout << c << " ";
+void deb(const vector<T> &v)
+{
+    for (int i = 0; i < v.size(); ++i)
+    {
+        cout << v[i] << (i < v.size() - 1 ? " " : "");
     }
     cout << endl;
 }
 
-void deb(int *a, int n) {
-    for (int i = 0; i < n; ++i) {
+void deb(int *a, int n)
+{
+    for (int i = 0; i < n; ++i)
+    {
         cout << a[i] << " ";
     }
     cout << endl;
 }
 
 template <typename T>
-void deb(T *a, int n, int m) {
-    for (int r = 0; r < n; ++r) {
-        for (int c = 0; c < m; ++c) {
+void deb(T *a, int n, int m)
+{
+    for (int r = 0; r < n; ++r)
+    {
+        for (int c = 0; c < m; ++c)
+        {
             cout << a[r][c] << " ";
         }
         cout << endl;
     }
 }
 
-vll primeFac(ll n) {
+vll getPrimeFacs(ll n)
+{
     vll p;
-    while (n % 2 == 0) {
+    while (n % 2 == 0)
+    {
         p.push_back(2);
         n /= 2;
     }
-    for (int i = 3; i * i <= n; i += 2) {
-        while(n % i == 0) {
+    for (int i = 3; i * i <= n; i += 2)
+    {
+        while (n % i == 0)
+        {
             p.push_back(i);
             n /= i;
         }
-        if (n == 1) {
+        if (n == 1)
+        {
             break;
         }
     }
-    if (n > 1) {
+    if (n > 1)
+    {
         p.push_back(n);
     }
     return p;
 }
 
-template <typename T>
-struct Counter {
-    unordered_map<T, ll> counter;
-    ll operator[](ll x) const {
-        if (counter.find(x) == counter.end()) {
-            counter[x] = 0;
+ll fast_pow(ll a, ll b, ll m)
+{
+    ll ret = 1;
+    while (b)
+    {
+        if (b & 1)
+        {
+            ret *= a;
+            ret %= m;
         }
-        return counter[x];
+        a *= a;
+        a %= m;
+        b >>= 1;
     }
-    ll &operator[](ll x) {
-        if (counter.find(x) == counter.end()) {
-            counter[x] = 0;
-        }
-        return counter[x];
-    }
-
-    typename unordered_map<T, ll>::iterator begin() { return counter.begin(); }
-    typename unordered_map<T, ll>::iterator end() { return counter.end(); }
-};
-
-void solve() {
-    
+    return ret;
 }
 
-int main() {
+ll gcd(ll a, ll b)
+{
+    return a ? gcd(b % a, a) : b;
+}
+
+ll lcm(ll a, ll b)
+{
+    return (a * b) / gcd(a, b);
+}
+
+void solve()
+{
+}
+
+int main()
+{
     ios::sync_with_stdio(0);
-    cin.tie(0);
-    // int t;
+    // cin.tie(0);
+    // ll t;
     // cin >> t;
-    // while (t--) {
+    // while (t--)
+    // {
     //     solve();
     // }
     solve();
