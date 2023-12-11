@@ -1,0 +1,6 @@
+remmeber to int(c) the ones that require numbers
+startwith endwith
+lamdba old, ops : eval(ops)
+set() & set()
+strip().split()
+tuple() do not ''.join()

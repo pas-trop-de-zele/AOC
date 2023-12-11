@@ -1,0 +1,10 @@
+down_level = len(down)
+    for i in range(down_level):
+        y, x = down.popleft()
+        if y+1 < H and (y+1,x) not in east and (y+1,x) not in down:
+            down.append((y+1, x))
+        elif y+1==H and (0,x) not in east and (0,x) not in down:
+            down.append((0, x))
+        else:
+            down.append((y,x))
+    

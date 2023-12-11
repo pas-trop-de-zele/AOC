@@ -7,7 +7,7 @@ from collections import *
 import functools
 from math import *
 from dataclasses import dataclass
-from icecream import ic
+from hashlib import md5
 
 sys.setrecursionlimit(100000000)
 
@@ -24,21 +24,23 @@ MOVES_ALL = [[1, 0], [1, 1], [0, 1], [-1, 1],
              [-1, 0], [-1, -1], [0, -1], [1, -1]]
 
 fin = sys.stdin.read().strip().split("\n")
+Y = []
+X = []
+finite_points = []
+points = []
+for line in fin:
+    x, y = [int(c) for c in line.split(',')]
+    points.append((y, x))
+    Y.append(y)
+    X.append(x)
 
-class State:
-    def __init__(self, y, x, dist):
-        self.y = y
-        self.x = x
-        self.dist = dist
-    
-    def __lt__(self, o):
-        return self.dist < o.dist
-    
-states = [State(1,0,1), State(1,1,2), State(0,0,10)]
-q = []
-for s in states:
-    heapq.heappush(q, s)
-
-while q:
-    state = heapq.heappop(q)
-    print(state.y, state.x, state.dist)
+THRESHOLD = 10000
+ret = 0
+for y in range(min(Y), max(Y)+1):
+    for x in range(min(X), max(X)+1):
+        total_distance = 0
+        for yy, xx in points:
+            total_distance += abs(y-yy) + abs(x-xx)
+        if total_distance < THRESHOLD:
+            ret += 1
+print(ret)
