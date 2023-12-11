@@ -1,0 +1,9 @@
+remmeber to int(c) the ones that require numbers
+startwith endwith
+lamdba old, ops : eval(ops)
+set() & set()
+strip().split()
+tuple() do not ''.join()
+before doing case work can you just brute every combination
+take deep breath from first to second
+fin[1].split("\n")
