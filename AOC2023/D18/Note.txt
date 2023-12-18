@@ -1,0 +1,20 @@
+READ THE QUESTION FIRST, then all the highlights, then backtrack
+
+TEND TO FORGET:
+    remmeber to int(c) the ones that require numbers
+    strip().split()
+    split('\n\n') tend to follow by another fin[1].split("\n")
+    before doing case work can you just brute every combination
+
+GRID PROBLEMS:
+    watch out row vs col issue
+    watch out if input given is (y, x) OR (x, y)
+    watch out if starting point is (0,0) or something else
+    y+1 is under, y-1 is above
+
+TECHNIQUES:
+    lamdba old, ops : eval(ops)
+    use try/ except when needing to read int / string instead of having to nested if else
+    set() & set()
+    startwith endwith
+    tuple() do not ''.join()
