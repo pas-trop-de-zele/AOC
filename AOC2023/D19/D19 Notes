@@ -1,0 +1,37 @@
+May need to de duplicate the ranges we get
+get_range_from_set() assuming set is sorted already
+
+RULES = (var, range, destination)
+
+lost config
+
+overcounting even when not taking in account the last resort
+
+dont know how to process the last resort, log the accepted node to check if there are duplicate
+
+maybe we would have to store the gain from each locations, and subtract it off whenever we see it again?
+
+need to have a running config
+example:
+in{s<1351:px,qqz}
+
+s: range(1,4001)
+if go px:
+    s = range(1,1351)
+else:
+    s = range(1351, 4000)
+
+update var with the intersection of itself and the opposite count 
+
+now that we have solved overcount, we are undercount for b :sam-sad
+
+Suspicious: do we even need to update the config when there's no common? sample answer still correct
+answer goes from 63457354555063 -> 84247114033132 still LOW
+
+Low count must be from those range(0,0)
+
+Learned 2 things, when compare range, it would resolve to a list of number then compare the first and last
+which makes for an interesting situation where range(10,10) == range(0,0)
+since both would resolve to be [] empty
+
+After investigate the empty ones realized that undercount was due to get_intersect_range() not working properply since we forgot to sort the ranges
