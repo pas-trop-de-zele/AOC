@@ -41,8 +41,8 @@ for line in fin:
     CUBES.append([[left[0], right[0]], [left[1], right[1]],[left[2], right[2]]])
     MAX_HEIGHT = max(MAX_HEIGHT, right[2])
 
-
 def share_space(cubes, u, v):
+    """ Check if 2 cubes share horizontal 2d space """
     A = cubes[u]
     B = cubes[v]
     X,Y,_ = A
@@ -68,6 +68,7 @@ def share_space(cubes, u, v):
     return False
 
 def count_support(cubes, my_cube_id):
+    """ Count number of other cube that share space and is right below"""
     ret = 0
     A = cubes[my_cube_id]
     Alo = A[2][0]
@@ -80,7 +81,9 @@ def count_support(cubes, my_cube_id):
     return ret
 
 def fall(cubes, cube_id):
-    # simulate cube falling
+    """
+    simulate 1 fall
+    """
     A = cubes[cube_id]
     z1,z2 = A[2]
     changed = False
@@ -105,9 +108,13 @@ def fall(cubes, cube_id):
     return changed
 
 def get_stabilize_config(cubes):
+    """ Keep falling until no other cubes fell"""
     ret = copy.deepcopy(cubes)
+
+    # Optimize so it would fall from low to hi and stabelized faster
     ret.sort(key=lambda cube : cube[2])
-    # Simulate fall
+
+    # Simulate fall until no changes are observed
     fall_times = 0
     cube_id_changed = set()
     while True:
@@ -122,9 +129,6 @@ def get_stabilize_config(cubes):
     return (ret, len(cube_id_changed))
 
 
-"""
-overcomplicated it, already have fall() function, just have to rewrote to be able to fall from the parameter config
-"""
 
 def p1():
     global CUBES
@@ -141,7 +145,7 @@ def p1():
                 B = cubes[other_cube_id]
                 Blo = B[2][0]
 
-                # check to see if there are any other cube that is being supported by this one
+                # check to see whether cube_id is the only support the other_cube_id hass
                 if Ahi + 1 == Blo and share_space(cubes, cube_id, other_cube_id):
 
                     if count_support(cubes, other_cube_id) == 1:
@@ -152,6 +156,7 @@ def p1():
     print(ret)
 
 def p2():
+    """Use fall function from above and sum the cube changes"""
     global CUBES
     CUBES, _ = get_stabilize_config(CUBES)
     ret = 0
